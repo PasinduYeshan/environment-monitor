@@ -1,6 +1,7 @@
 const SensorData = require("./model.js");
 const path = require("path");
 const express = require("express");
+let ejs = require("ejs");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -21,9 +22,11 @@ app.get("/", async (req, res) => {
   // If there is error with database send 500 internal server error
   if (result.error) {
     res.status(500).send();
+    return;
   }
-  console.log(result.result);
-  res.status(200).send(res.result);
+  const t = result.result[0].time_stamp;
+  // console.log(result.result);
+  res.status(200).render("./index.ejs", { values: result.result });
 });
 
 module.exports = server;
