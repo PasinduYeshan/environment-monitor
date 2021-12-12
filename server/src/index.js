@@ -25,7 +25,7 @@ app.get("/", async (req, res) => {
     return;
   }
   const t = result.result[0].time_stamp;
-  // console.log(result.result);
+  console.log(result.result);
   res.status(200).render("./index.ejs", { values: result.result });
 });
 
