@@ -2,6 +2,7 @@ const SensorData = require("./model.js");
 const path = require("path");
 const express = require("express");
 let ejs = require("ejs");
+var parseString = require("xml2js").parseString;
 
 const app = express();
 app.set("view engine", "ejs");
@@ -27,6 +28,32 @@ app.get("/", async (req, res) => {
   const t = result.result[0].time_stamp;
   console.log(result.result);
   res.status(200).render("./index.ejs", { values: result.result });
+});
+
+/**
+ * Write to the database
+ */
+app.post("/sensor-values", async (req, res) => {
+  try {
+    parseString(req.body, function (err, result) {
+      const sensorData = [
+        result.alertId,
+        result.timeStamp,
+        result.temperature,
+        result.temperature_sd,
+        result.humidity,
+        result.humidity_sd,
+        result.pressure,
+        result.pressure_sd,
+        result.li,
+        result.li_sd,
+      ];
+      await SensorData.writeSensorData(sensorData);
+    });
+    res.status(200).send();
+  } catch (error) {
+    res.status(500).send();
+  }
 });
 
 module.exports = server;
