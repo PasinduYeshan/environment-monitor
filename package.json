@@ -17,7 +17,8 @@
     "json": "^10.0.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {}
 }

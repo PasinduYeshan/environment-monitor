@@ -35,6 +35,7 @@ app.get("/", async (req, res) => {
  */
 app.post("/sensor-values", async (req, res) => {
   try {
+    sensorData = [];
     parseString(req.body, function (err, result) {
       const sensorData = [
         result.alertId,
@@ -48,8 +49,8 @@ app.post("/sensor-values", async (req, res) => {
         result.li,
         result.li_sd,
       ];
-      await SensorData.writeSensorData(sensorData);
     });
+    await SensorData.writeSensorData(sensorData);
     res.status(200).send();
   } catch (error) {
     res.status(500).send();

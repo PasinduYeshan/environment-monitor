@@ -131,12 +131,10 @@ void push_buffer_values()
 void connect_wifi_reconnect()
 {
     WiFi.begin(SSID, PW);
-    Serial.println("");
     while (WiFi.status() != WL_CONNECTED)
     {
         delay(1000);
     }
-    Serial.print("[WIFI] is Connected");
 }
 
 /**
